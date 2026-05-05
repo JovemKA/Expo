@@ -1,17 +1,24 @@
 import React, { useMemo } from 'react';
-import { Button, ButtonText, HStack } from '@gluestack-ui/themed';
-import { StyleSheet } from 'react-native';
+import { HStack } from '@gluestack-ui/themed';
+import { Pressable, StyleSheet, View } from 'react-native';
 import { Link, usePathname } from 'expo-router';
 
+import { IconSymbol, type IconSymbolName } from '@/components/ui/icon-symbol';
 import { useThemeMode } from '@/hooks/useThemeMode';
 import { Theme } from '@/theme';
 
-const NAV_ITEMS = [
-  { label: 'Home', href: '/' },
-  { label: 'About', href: '/about' },
-  { label: 'Academic', href: '/academic' },
-  { label: 'Professional', href: '/professional' },
-  { label: 'Projects', href: '/projects' },
+type NavItem = {
+  label: string;
+  href: string;
+  icon: IconSymbolName;
+};
+
+const NAV_ITEMS: NavItem[] = [
+  { label: 'Home', href: '/', icon: 'house.fill' },
+  { label: 'Professional', href: '/professional', icon: 'briefcase.fill' },
+  { label: 'Academic', href: '/academic', icon: 'graduationcap.fill' },
+  { label: 'Projects', href: '/projects', icon: 'folder.fill' },
+  { label: 'About', href: '/about', icon: 'person.crop.circle.fill' },
 ];
 
 export function SectionNav() {
@@ -25,15 +32,17 @@ export function SectionNav() {
         const isActive = pathname === item.href;
         return (
           <Link key={item.href} href={item.href} asChild>
-            <Button style={[styles.button, isActive ? styles.buttonActive : styles.buttonInactive]}>
-              <ButtonText
-                style={[
-                  styles.buttonText,
-                  isActive ? styles.buttonTextActive : styles.buttonTextInactive,
-                ]}>
-                {item.label}
-              </ButtonText>
-            </Button>
+            <Pressable accessibilityLabel={item.label} style={styles.pressable}>
+              {({ pressed }) => (
+                <View style={[styles.button, pressed ? styles.buttonPressed : null]}>
+                  <IconSymbol
+                    name={item.icon}
+                    color={isActive ? theme.colors.primary : theme.colors.mutedText}
+                    size={26}
+                  />
+                </View>
+              )}
+            </Pressable>
           </Link>
         );
       })}
@@ -44,30 +53,24 @@ export function SectionNav() {
 const createStyles = (theme: Theme) =>
   StyleSheet.create({
     container: {
-      flexWrap: 'wrap',
-      gap: theme.spacing.sm,
+      width: '100%',
+      alignItems: 'center',
+      justifyContent: 'space-between',
+      gap: theme.spacing.xs,
+    },
+    pressable: {
+      flex: 1,
+      alignItems: 'center',
+      justifyContent: 'center',
     },
     button: {
-      borderRadius: theme.spacing.sm,
-      paddingHorizontal: theme.spacing.md,
-      paddingVertical: theme.spacing.xs,
-      borderWidth: 1,
+      minHeight: 46,
+      alignItems: 'center',
+      justifyContent: 'center',
+      paddingVertical: 0,
+      paddingHorizontal: 0,
     },
-    buttonActive: {
-      backgroundColor: theme.colors.primary,
-      borderColor: theme.colors.primary,
-    },
-    buttonInactive: {
-      backgroundColor: theme.colors.surface,
-      borderColor: theme.colors.border,
-    },
-    buttonText: {
-      fontFamily: theme.typography.fontFamily.subtitle,
-    },
-    buttonTextActive: {
-      color: theme.colors.background,
-    },
-    buttonTextInactive: {
-      color: theme.colors.text,
+    buttonPressed: {
+      opacity: 0.72,
     },
   });

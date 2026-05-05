@@ -16,17 +16,23 @@ export default function AcademicScreen() {
   return (
     <ScreenLayout>
       <SectionHeader title="Academic Experience" subtitle="Education and research" />
-      <VStack style={styles.stack}>
-        {academic.map((item) => (
-          <ListItem
-            key={`${item.institution}-${item.course}`}
-            title={item.institution}
-            subtitle={item.course}
-            period={item.period}
-            description={item.description}
-          />
-        ))}
-      </VStack>
+      {academic.length > 0 ? (
+        <VStack style={styles.stack}>
+          {academic.map((item) => (
+            <ListItem
+              key={`${item.institution}-${item.course}`}
+              title={item.institution}
+              subtitle={item.course}
+              period={item.period}
+              description={item.description}
+            />
+          ))}
+        </VStack>
+      ) : (
+        <VStack style={styles.emptyState}>
+          <SectionHeader title="Nenhum registro acadêmico disponível" subtitle="" />
+        </VStack>
+      )}
     </ScreenLayout>
   );
 }
@@ -35,5 +41,12 @@ const createStyles = (theme: Theme) =>
   StyleSheet.create({
     stack: {
       gap: theme.spacing.lg,
+    },
+    emptyState: {
+      backgroundColor: theme.colors.surface,
+      borderColor: theme.colors.border,
+      borderWidth: 1,
+      borderRadius: theme.spacing.md,
+      padding: theme.spacing.lg,
     },
   });

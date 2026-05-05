@@ -63,7 +63,7 @@ export default function ProjectsScreen() {
         ))}
         {filteredProjects.length === 0 ? (
           <Box style={styles.emptyState}>
-            <Text style={styles.emptyText}>No projects matched that search.</Text>
+            <Text style={styles.emptyText}>Nenhum projeto corresponde a essa pesquisa.</Text>
           </Box>
         ) : null}
       </VStack>

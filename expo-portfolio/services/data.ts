@@ -6,8 +6,8 @@ export type Profile = {
   bio: string;
   avatar: ImageSourcePropType;
   links: {
-    github: string;
-    linkedin: string;
+    github?: string;
+    linkedin?: string;
   };
 };
 
@@ -38,85 +38,56 @@ export type Project = {
 };
 
 export const profile: Profile = {
-  name: 'Jordan Lee',
-  title: 'Senior React Native Engineer',
-  bio: 'I craft mobile products that blend performance, accessibility, and thoughtful design systems. This resume app demonstrates a reusable component approach, structured navigation, and data-driven storytelling.',
-  avatar: require('../assets/images/react-logo.png'),
+  name: 'Andrey Kaiky Reis Ferreira',
+  title: 'Desenvolvedor de Software',
+  bio: 'Sou estudante e desenvolvedor de software apaixonado por tecnologia, inovação e trabalho em equipe, com experiência em desenvolvimento utilizando Java, JavaScript e TypeScript. Atuo em projetos com NestJS, Spring Boot e Vue.js, participando tanto da construção de novas soluções quanto da manutenção e evolução de sistemas complexos. Possuo forte habilidade de comunicação, o que me permite alinhar objetivos, compartilhar conhecimento e contribuir para ambientes colaborativos e produtivos. Busco constantemente crescimento profissional e oportunidades para colaborar com equipes comprometidas com entregas de alta qualidade.',
+  avatar: require('../assets/images/profile.jpg'),
   links: {
-    github: 'https://github.com/jordanlee',
-    linkedin: 'https://www.linkedin.com/in/jordanlee',
+    github: 'https://github.com/jovemka',
+    linkedin: 'https://www.linkedin.com/in/andreykaiky/',
   },
 };
 
 export const academic: AcademicItem[] = [
   {
-    institution: 'Westbridge University',
-    course: 'B.S. in Computer Science',
-    period: '2013 - 2017',
-    description: 'Focused on human-computer interaction, software architecture, and mobile computing. Led a capstone project on realtime health analytics.',
+    institution: 'UNICAP - Universidade Católica de Pernambuco',
+    course: 'Tecnólogo em Sistemas para Internet',
+    period: 'JAN 2024 – DEZ 2026',
+    description: 'Curso em andamento com foco em desenvolvimento web, programação orientada a objetos, inteligência artificial aplicada e testes de software. Principais disciplinas: Aplicações Orientadas a Serviços, POO, IA Aplicada e Processos de Testes.',
   },
   {
-    institution: 'Northshore Institute of Technology',
-    course: 'M.S. in Software Engineering',
-    period: '2018 - 2020',
-    description: 'Researched scalable UI architectures and built a component library for cross-platform teams.',
+    institution: 'CESAR School',
+    course: 'Formação Acelerada em Soluções de Techdesign (FAST)',
+    period: 'SET 2024',
+    description: 'Formação intensiva com foco em Agilidade, Fundamentos de Frontend, Web API, React e Testes Automatizados.',
+  },
+  {
+    institution: 'Alura',
+    course: 'Formação: A partir do zero - Programação',
+    period: 'JUL 2024',
+    description: 'Curso introdutório em programação para iniciantes.',
   },
 ];
 
 export const professional: ProfessionalItem[] = [
   {
-    role: 'Senior React Native Engineer',
-    company: 'Orbit Labs',
-    period: '2022 - Present',
-    description: 'Led the mobile platform modernization effort, introducing a modular architecture, automated release pipelines, and a design-token driven UI kit.',
-    technologies: ['React Native', 'Expo', 'TypeScript', 'GraphQL', 'Jest'],
-  },
-  {
-    role: 'Mobile Engineer',
-    company: 'Nova Health',
-    period: '2019 - 2022',
-    description: 'Built clinical workflow tools with offline-first sync, biometric onboarding, and analytics dashboards for providers.',
-    technologies: ['React Native', 'Redux Toolkit', 'Firebase', 'SQLite', 'Figma'],
+    role: 'Estágio em Desenvolvimento de Sistemas',
+    company: 'Radium Tecnologia',
+    period: 'MAI 2025 – NOV 2025',
+    description: 'Desenvolvimento completo de aplicativo e serviço Android em Java utilizando Gradle, voltado à transmissão RTMP em tempo real. Integração com hardware específico e desenvolvimento de SaaS para gestão de videomonitoramento. Manutenção e evolução de backend em NestJS, incluindo correção de bugs e implementação de novas funcionalidades. Frontend em Vue.js utilizando Vue Router, Pinia e Element Plus. Atuação com arquitetura de microsserviços utilizando Docker, RabbitMQ e WebSockets. Participação em ambiente ágil com Scrum.',
+    technologies: ['Java', 'Android', 'Gradle', 'RTMP', 'NestJS', 'Vue.js', 'Vue Router', 'Pinia', 'Element Plus', 'Docker', 'RabbitMQ', 'WebSockets', 'PostgreSQL', 'Git', 'Gitflow', 'Scrum'],
   },
 ];
 
 export const projects: Project[] = [
   {
-    title: 'PulsePay',
-    description: 'A digital wallet experience with instant transfers, spend insights, and a new user onboarding flow that reduced drop-off by 18%.',
-    technologies: ['Expo', 'React Native', 'TypeScript'],
+    title: 'Software de Organização Financeira',
+    description: 'Desenvolvimento de API com autenticação via Supabase e implementação de CRUDs para visualização de relatórios financeiros. Projeto realizado durante a Residência Porto Digital em parceria com CinQ Finance.',
+    technologies: ['JavaScript', 'Node.js', 'Express.js', 'Supabase', 'PostgreSQL', 'Git', 'GitHub', 'Scrum'],
     links: {
-      github: 'https://github.com/jordanlee/pulsepay',
-      demo: 'https://pulsepay.app',
+      github: 'https://github.com/monix',
     },
     featured: true,
-  },
-  {
-    title: 'Atlas Mobility',
-    description: 'A fleet management companion for delivery drivers with live route changes, safety checklists, and performance snapshots.',
-    technologies: ['React Native', 'Maps', 'REST APIs'],
-    links: {
-      github: 'https://github.com/jordanlee/atlas-mobility',
-    },
-    featured: true,
-  },
-  {
-    title: 'Studio Minutes',
-    description: 'A creative studio planner that organizes client briefs, moodboards, and timelines in a visual workspace.',
-    technologies: ['Expo Router', 'Gluestack UI', 'TypeScript'],
-    links: {
-      github: 'https://github.com/jordanlee/studio-minutes',
-      demo: 'https://studio-minutes.app',
-    },
-    featured: true,
-  },
-  {
-    title: 'Harvest AI',
-    description: 'An agriculture insights app that turns sensor data into irrigation recommendations and weather forecasts.',
-    technologies: ['React Native', 'Charting', 'Edge Functions'],
-    links: {
-      github: 'https://github.com/jordanlee/harvest-ai',
-    },
   },
 ];
 
