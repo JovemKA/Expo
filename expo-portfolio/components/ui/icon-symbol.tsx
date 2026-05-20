@@ -1,24 +1,32 @@
 // Fallback for using MaterialIcons on Android and web.
 
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import { SymbolWeight, SymbolViewProps } from 'expo-symbols';
-import { ComponentProps } from 'react';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { SymbolWeight } from 'expo-symbols';
 import { OpaqueColorValue, type StyleProp, type TextStyle } from 'react-native';
 
-type IconMapping = Record<SymbolViewProps['name'], ComponentProps<typeof MaterialIcons>['name']>;
-type IconSymbolName = keyof typeof MAPPING;
+type IconLib = 'material' | 'ionicons';
+type IconSpec = { lib: IconLib; name: string };
 
-/**
- * Add your SF Symbols to Material Icons mappings here.
- * - see Material Icons in the [Icons Directory](https://icons.expo.fyi).
- * - see SF Symbols in the [SF Symbols](https://developer.apple.com/sf-symbols/) app.
- */
 const MAPPING = {
-  'house.fill': 'home',
-  'paperplane.fill': 'send',
-  'chevron.left.forwardslash.chevron.right': 'code',
-  'chevron.right': 'chevron-right',
-} as IconMapping;
+  'house.fill': { lib: 'material', name: 'home' },
+  'person.crop.circle.fill': { lib: 'material', name: 'person' },
+  'graduationcap.fill': { lib: 'material', name: 'school' },
+  'briefcase.fill': { lib: 'material', name: 'work' },
+  'folder.fill': { lib: 'ionicons', name: 'folder' },
+  'moon.fill': { lib: 'material', name: 'dark-mode' },
+  'sun.max.fill': { lib: 'material', name: 'light-mode' },
+  'paperplane.fill': { lib: 'material', name: 'send' },
+  'chevron.left.forwardslash.chevron.right': { lib: 'material', name: 'code' },
+  'chevron.right': { lib: 'material', name: 'chevron-right' },
+  'location.fill': { lib: 'ionicons', name: 'location-outline' },
+  'github.fill': { lib: 'ionicons', name: 'logo-github' },
+  'linkedin.fill': { lib: 'ionicons', name: 'logo-linkedin' },
+  'certificate.fill': { lib: 'ionicons', name: 'ribbon' },
+  'work.fill': { lib: 'material', name: 'work' },
+} satisfies Record<string, IconSpec>;
+
+export type IconSymbolName = keyof typeof MAPPING;
 
 /**
  * An icon component that uses native SF Symbols on iOS, and Material Icons on Android and web.
@@ -37,5 +45,15 @@ export function IconSymbol({
   style?: StyleProp<TextStyle>;
   weight?: SymbolWeight;
 }) {
-  return <MaterialIcons color={color} size={size} name={MAPPING[name]} style={style} />;
+  const spec = MAPPING[name];
+  if (!spec) {
+    // fallback to a simple box or a default material icon
+    return <MaterialIcons color={color} size={size} name={'help'} style={style} />;
+  }
+
+  if (spec.lib === 'material') {
+    return <MaterialIcons color={color} size={size} name={spec.name as any} style={style} />;
+  }
+
+  return <Ionicons color={color} size={size} name={spec.name as any} style={style} />;
 }

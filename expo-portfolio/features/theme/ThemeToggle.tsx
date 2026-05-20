@@ -1,23 +1,21 @@
 import React, { useMemo } from 'react';
-import { Button, ButtonText } from '@gluestack-ui/themed';
+import { Button } from '@gluestack-ui/themed';
 import { StyleSheet } from 'react-native';
 
+import { IconSymbol } from '@/components/ui/icon-symbol';
 import { useThemeMode } from '@/hooks/useThemeMode';
 import { Theme } from '@/theme';
 
-type ThemeToggleProps = {
-  compact?: boolean;
-};
-
-export function ThemeToggle({ compact = false }: ThemeToggleProps) {
+export function ThemeToggle() {
   const { colorMode, toggleColorMode, theme } = useThemeMode();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const iconName = colorMode === 'dark' ? 'sun.max.fill' : 'moon.fill';
+  const iconColor = theme.colors.modeToggleIcon;
+  const accessibilityLabel = colorMode === 'dark' ? 'Switch to light mode' : 'Switch to dark mode';
 
   return (
-    <Button onPress={toggleColorMode} style={[styles.button, compact ? styles.compact : null]}>
-      <ButtonText style={styles.text}>
-        {colorMode === 'dark' ? 'Light Mode' : 'Dark Mode'}
-      </ButtonText>
+    <Button onPress={toggleColorMode} accessibilityLabel={accessibilityLabel} style={styles.button}>
+      <IconSymbol name={iconName} color={iconColor} size={32} />
     </Button>
   );
 }
@@ -25,15 +23,15 @@ export function ThemeToggle({ compact = false }: ThemeToggleProps) {
 const createStyles = (theme: Theme) =>
   StyleSheet.create({
     button: {
-      backgroundColor: theme.colors.secondary,
-      borderRadius: theme.spacing.sm,
-      paddingHorizontal: theme.spacing.md,
-    },
-    compact: {
-      paddingHorizontal: theme.spacing.sm,
-    },
-    text: {
-      color: theme.colors.text,
-      fontFamily: theme.typography.fontFamily.subtitle,
+      width: 48,
+      height: 48,
+      borderRadius: 21,
+      paddingHorizontal: 0,
+      paddingVertical: 0,
+      alignItems: 'center',
+      justifyContent: 'center',
+      backgroundColor: theme.colors.surface,
+      borderWidth: 1,
+      borderColor: theme.colors.border,
     },
   });

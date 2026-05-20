@@ -9,6 +9,7 @@ export const colorTokens = {
     accent: '#E11D48',
     border: '#E4DED6',
     chip: '#EEF2F0',
+    modeToggleIcon: '#000000', 
   },
   dark: {
     background: '#0E1113',
@@ -20,5 +21,6 @@ export const colorTokens = {
     accent: '#FB7185',
     border: '#2B3238',
     chip: '#1F2A2E',
+    modeToggleIcon: '#ffffff',
   },
 } as const;
