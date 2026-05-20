@@ -1,5 +1,5 @@
-import React, { useMemo } from 'react';
 import { Box, Button, ButtonText, HStack, Text, VStack } from '@gluestack-ui/themed';
+import React, { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
 
 import { useThemeMode } from '@/hooks/useThemeMode';
@@ -34,7 +34,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <Button
               style={styles.primaryButton}
               onPress={() => {
-                void openExternalLink(project.links.github);
+                void openExternalLink(project.links.github!);
               }}>
               <ButtonText style={styles.primaryButtonText}>GitHub</ButtonText>
             </Button>
@@ -43,7 +43,7 @@ export function ProjectCard({ project }: ProjectCardProps) {
             <Button
               style={styles.secondaryButton}
               onPress={() => {
-                void openExternalLink(project.links.demo);
+                void openExternalLink(project.links.demo!);
               }}>
               <ButtonText style={styles.secondaryButtonText}>Live Demo</ButtonText>
             </Button>

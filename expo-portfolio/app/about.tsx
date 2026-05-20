@@ -1,47 +1,41 @@
+import { Text, VStack } from '@gluestack-ui/themed';
 import React, { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
-import { Text, VStack } from '@gluestack-ui/themed';
 
 import { ScreenLayout } from '@/components/ScreenLayout';
 import { SectionHeader } from '@/components/SectionHeader';
+import { usePortfolioContent } from '@/hooks/usePortfolioContent';
 import { useThemeMode } from '@/hooks/useThemeMode';
-import { appTechnologies, extraFeatures } from '@/services/data';
 import { Theme } from '@/theme';
 
 export default function AboutScreen() {
   const { theme } = useThemeMode();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const { content } = usePortfolioContent();
 
   return (
     <ScreenLayout>
-      <SectionHeader title="About" subtitle="A snapshot of my approach" />
+      <SectionHeader title="Sobre" subtitle="Uma visão rápida sobre minha abordagem" />
       <VStack style={styles.bodyStack}>
-        <Text style={styles.body}>
-          I design and build mobile apps that feel intentional, fast, and human. My focus is on
-          modular architectures, design systems, and production-readiness, so teams can ship with
-          confidence.
-        </Text>
-        <Text style={styles.body}>
-          This portfolio app is structured around reusable UI primitives, typed data, and a theme
-          system that keeps the visuals consistent across every screen.
-        </Text>
+        {(content.aboutParagraphs || []).map((p, idx) => (
+          <Text key={`about-${idx}`} style={styles.body}>
+            {p}
+          </Text>
+        ))}
       </VStack>
 
-      <SectionHeader title="Technology Stack" subtitle="Built with tools I trust" />
+      <SectionHeader title="Stack de Tecnologias" subtitle="Construído com ferramentas que confio" />
       <VStack style={styles.list}>
-        {appTechnologies.map((tech) => (
+        {content.appTechnologies.map((tech) => (
           <Text key={tech} style={styles.listItem}>
             - {tech}
           </Text>
         ))}
       </VStack>
 
-      <SectionHeader
-        title="Extra Features Implemented"
-        subtitle="Beyond the core requirements"
-      />
+      <SectionHeader title="Recursos Extras" subtitle="Além dos requisitos principais" />
       <VStack style={styles.list}>
-        {extraFeatures.map((feature) => (
+        {content.extraFeatures.map((feature) => (
           <Text key={feature} style={styles.listItem}>
             - {feature}
           </Text>

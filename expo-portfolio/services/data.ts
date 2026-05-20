@@ -4,11 +4,18 @@ export type Profile = {
   name: string;
   title: string;
   bio: string;
+  location: string;
   avatar: ImageSourcePropType;
   links: {
     github?: string;
     linkedin?: string;
   };
+};
+
+export type PortfolioSummary = {
+  certificates: number;
+  experience: string;
+  projects: number;
 };
 
 export type AcademicItem = {
@@ -37,10 +44,22 @@ export type Project = {
   featured?: boolean;
 };
 
+export type PortfolioContent = {
+  profile: Profile;
+  summary: PortfolioSummary;
+  academic: AcademicItem[];
+  professional: ProfessionalItem[];
+  projects: Project[];
+  appTechnologies: readonly string[];
+  extraFeatures: readonly string[];
+  aboutParagraphs: string[];
+};
+
 export const profile: Profile = {
   name: 'Andrey Kaiky Reis Ferreira',
   title: 'Desenvolvedor de Software',
   bio: 'Sou estudante e desenvolvedor de software apaixonado por tecnologia, inovação e trabalho em equipe, com experiência em desenvolvimento utilizando Java, JavaScript e TypeScript. Atuo em projetos com NestJS, Spring Boot e Vue.js, participando tanto da construção de novas soluções quanto da manutenção e evolução de sistemas complexos. Possuo forte habilidade de comunicação, o que me permite alinhar objetivos, compartilhar conhecimento e contribuir para ambientes colaborativos e produtivos. Busco constantemente crescimento profissional e oportunidades para colaborar com equipes comprometidas com entregas de alta qualidade.',
+  location: 'Recife, PE',
   avatar: require('../assets/images/profile.jpg'),
   links: {
     github: 'https://github.com/jovemka',
@@ -91,6 +110,12 @@ export const projects: Project[] = [
   },
 ];
 
+export const summary: PortfolioSummary = {
+  certificates: 3,
+  experience: '1 ano',
+  projects: 3,
+};
+
 export const appTechnologies = ['Expo', 'React Native', 'Gluestack UI', 'Expo Router', 'TypeScript'] as const;
 
 export const extraFeatures = [
@@ -98,3 +123,17 @@ export const extraFeatures = [
   'Animated project filtering using LayoutAnimation',
   'Smooth stack transitions across screens',
 ] as const;
+
+export const portfolioFallback: PortfolioContent = {
+  profile,
+  summary,
+  academic,
+  professional,
+  projects,
+  appTechnologies,
+  extraFeatures,
+  aboutParagraphs: [
+    'Eu projeto e desenvolvo aplicativos móveis que são intencionais, rápidos e com foco na experiência humana. Meu trabalho privilegia arquiteturas modulares, design systems e preparação para produção, permitindo que equipes entreguem com confiança.',
+    'Este aplicativo de portfólio é estruturado com primitivos de UI reutilizáveis, dados tipados e um sistema de temas que mantém a consistência visual em todas as telas.',
+  ],
+};

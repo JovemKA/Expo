@@ -1,24 +1,25 @@
+import { VStack } from '@gluestack-ui/themed';
 import React, { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
-import { VStack } from '@gluestack-ui/themed';
 
 import { ListItem } from '@/components/ListItem';
 import { ScreenLayout } from '@/components/ScreenLayout';
 import { SectionHeader } from '@/components/SectionHeader';
+import { usePortfolioContent } from '@/hooks/usePortfolioContent';
 import { useThemeMode } from '@/hooks/useThemeMode';
-import { academic } from '@/services/data';
 import { Theme } from '@/theme';
 
 export default function AcademicScreen() {
   const { theme } = useThemeMode();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const { content } = usePortfolioContent();
 
   return (
     <ScreenLayout>
-      <SectionHeader title="Academic Experience" subtitle="Education and research" />
-      {academic.length > 0 ? (
+      <SectionHeader title="Experiência Acadêmica" subtitle="Educação e pesquisa" />
+      {content.academic.length > 0 ? (
         <VStack style={styles.stack}>
-          {academic.map((item) => (
+          {content.academic.map((item) => (
             <ListItem
               key={`${item.institution}-${item.course}`}
               title={item.institution}

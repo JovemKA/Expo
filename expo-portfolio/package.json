@@ -9,7 +9,8 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "lint": "expo lint",
-    "go-tunnel": "expo start --go --tunnel"
+    "go": "expo start --go",
+    "goTunnel": "expo start --go --tunnel"
   },
   "dependencies": {
     "@expo-google-fonts/space-grotesk": "latest",

@@ -1,17 +1,18 @@
+import { Box, Input, InputField, Text, VStack } from '@gluestack-ui/themed';
 import React, { useEffect, useMemo, useState } from 'react';
 import { LayoutAnimation, Platform, StyleSheet, UIManager } from 'react-native';
-import { Box, Input, InputField, Text, VStack } from '@gluestack-ui/themed';
 
 import { ProjectCard } from '@/components/ProjectCard';
 import { ScreenLayout } from '@/components/ScreenLayout';
 import { SectionHeader } from '@/components/SectionHeader';
+import { usePortfolioContent } from '@/hooks/usePortfolioContent';
 import { useThemeMode } from '@/hooks/useThemeMode';
-import { projects } from '@/services/data';
 import { Theme } from '@/theme';
 
 export default function ProjectsScreen() {
   const { theme } = useThemeMode();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const { content } = usePortfolioContent();
   const [query, setQuery] = useState('');
 
   useEffect(() => {
@@ -24,10 +25,10 @@ export default function ProjectsScreen() {
 
   const filteredProjects = useMemo(() => {
     if (!normalizedQuery) {
-      return projects;
+      return content.projects;
     }
 
-    return projects.filter((project) => {
+    return content.projects.filter((project) => {
       const haystack = [
         project.title,
         project.description,
@@ -37,7 +38,7 @@ export default function ProjectsScreen() {
         .toLowerCase();
       return haystack.includes(normalizedQuery);
     });
-  }, [normalizedQuery]);
+  }, [content.projects, normalizedQuery]);
 
   const handleQueryChange = (text: string) => {
     LayoutAnimation.configureNext(LayoutAnimation.Presets.easeInEaseOut);
@@ -46,12 +47,12 @@ export default function ProjectsScreen() {
 
   return (
     <ScreenLayout>
-      <SectionHeader title="Projects" subtitle="Search and explore the full portfolio" />
+      <SectionHeader title="Projetos" subtitle="Explore o portfólio completo" />
       <Input style={styles.search}>
         <InputField
           value={query}
           onChangeText={handleQueryChange}
-          placeholder="Search by title, tech, or keyword"
+          placeholder="Título, tecnologia ou palavra-chave"
           placeholderTextColor={theme.colors.mutedText}
           style={styles.searchText}
         />

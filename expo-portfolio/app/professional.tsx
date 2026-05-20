@@ -1,24 +1,25 @@
+import { VStack } from '@gluestack-ui/themed';
 import React, { useMemo } from 'react';
 import { StyleSheet } from 'react-native';
-import { VStack } from '@gluestack-ui/themed';
 
 import { ListItem } from '@/components/ListItem';
 import { ScreenLayout } from '@/components/ScreenLayout';
 import { SectionHeader } from '@/components/SectionHeader';
+import { usePortfolioContent } from '@/hooks/usePortfolioContent';
 import { useThemeMode } from '@/hooks/useThemeMode';
-import { professional } from '@/services/data';
 import { Theme } from '@/theme';
 
 export default function ProfessionalScreen() {
   const { theme } = useThemeMode();
   const styles = useMemo(() => createStyles(theme), [theme]);
+  const { content } = usePortfolioContent();
 
   return (
     <ScreenLayout>
-      <SectionHeader title="Professional Experience" subtitle="Roles and impact" />
-      {professional.length > 0 ? (
+      <SectionHeader title="Experiência Profissional" subtitle="Funções e impacto" />
+      {content.professional.length > 0 ? (
         <VStack style={styles.stack}>
-          {professional.map((item) => (
+          {content.professional.map((item) => (
             <ListItem
               key={`${item.company}-${item.role}`}
               title={item.role}

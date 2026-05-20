@@ -1,33 +1,34 @@
+import { Button, ButtonText, HStack, Text, VStack } from '@gluestack-ui/themed';
 import React, { useMemo } from 'react';
 import { Image, StyleSheet } from 'react-native';
-import { Button, ButtonText, HStack, Text, VStack } from '@gluestack-ui/themed';
 
 import { ProjectCard } from '@/components/ProjectCard';
 import { ScreenLayout } from '@/components/ScreenLayout';
 import { SectionHeader } from '@/components/SectionHeader';
+import { IconSymbol } from '@/components/ui/icon-symbol';
+import { usePortfolioContent } from '@/hooks/usePortfolioContent';
 import { useThemeMode } from '@/hooks/useThemeMode';
-import { profile, projects } from '@/services/data';
 import { Theme } from '@/theme';
 import { openExternalLink } from '@/utils/linking';
-import { IconSymbol } from '@/components/ui/icon-symbol';
 
 export default function HomeScreen() {
   const { theme } = useThemeMode();
   const styles = useMemo(() => createStyles(theme), [theme]);
-  const featuredProjects = projects.filter((project) => project.featured).slice(0, 3);
-  const githubLink = profile.links.github;
-  const linkedinLink = profile.links.linkedin;
+  const { content } = usePortfolioContent();
+  const featuredProjects = content.projects.filter((project) => project.featured).slice(0, 3);
+  const githubLink = content.profile.links.github;
+  const linkedinLink = content.profile.links.linkedin;
 
   return (
     <ScreenLayout>
       <VStack style={styles.heroSection}>
-        <Image source={profile.avatar} style={styles.avatar} />
+        <Image source={content.profile.avatar} style={styles.avatar} />
         <VStack style={styles.heroCopy}>
-          <Text style={styles.name}>{profile.name}</Text>
-          <Text style={styles.title}>{profile.title}</Text>
+          <Text style={styles.name}>{content.profile.name}</Text>
+          <Text style={styles.title}>{content.profile.title}</Text>
           <HStack style={{ gap: 4, alignItems: 'center' }}>
             <IconSymbol name="location.fill" color={theme.colors.mutedText} size={20} />
-            <Text style={styles.location}>Recife, PE</Text>
+            <Text style={styles.location}>{content.profile.location}</Text>
           </HStack>
         </VStack>
         <HStack style={styles.linkRow}>
@@ -59,17 +60,17 @@ export default function HomeScreen() {
         <HStack style={styles.statsRow}>
           <VStack style={styles.statItem}>
             <IconSymbol name="certificate.fill" color={theme.colors.primary} size={26} />
-            <Text style={styles.statValue}>3</Text>
+            <Text style={styles.statValue}>{content.summary.certificates}</Text>
             <Text style={styles.statLabel}>Certificados</Text>
           </VStack>
           <VStack style={styles.statItem}>
             <IconSymbol name="work.fill" color={theme.colors.primary} size={26} />
-            <Text style={styles.statValue}>1 ano</Text>
+            <Text style={styles.statValue}>{content.summary.experience}</Text>
             <Text style={styles.statLabel}>Experiência</Text>
           </VStack>
           <VStack style={styles.statItem}>
             <IconSymbol name="folder.fill" color={theme.colors.primary} size={26} />
-            <Text style={styles.statValue}>3</Text>
+            <Text style={styles.statValue}>{content.summary.projects}</Text>
             <Text style={styles.statLabel}>Projetos</Text>
           </VStack>
         </HStack>
@@ -78,7 +79,7 @@ export default function HomeScreen() {
       <VStack style={styles.cardGroup}>
         <VStack style={styles.aboutCard}>
           <Text style={styles.aboutTitle}>Resumo Profissional</Text>
-          <Text style={styles.aboutText}>{profile.bio}</Text>
+          <Text style={styles.aboutText}>{content.profile.bio}</Text>
         </VStack>
 
         <SectionHeader title="Stack Principal" subtitle="Habilidades Técnicas" />
